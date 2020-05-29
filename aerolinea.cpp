@@ -11,7 +11,7 @@ class Usuario{
 		string c_electronico;
 	public:
 		Usuario(string, int, string);
-		void verificar_cuenta();
+		virtual void verificar_cuenta();
 };
 
 //Constructor SuperClase Usuario
@@ -24,7 +24,7 @@ Usuario::Usuario(string _nombre, int _id_usuario, string _c_electronico){
 
 //Void de la SuperClase Usuario
 void Usuario::verificar_cuenta(){
-	cout<<"Verificar Cuenta del Usuario: "<<endl;
+	cout<<"Verificar Cuenta: "<<endl;
 	cout<<"Nombre: "<<nombre<<endl;
 	cout<<"Id de Usuario: "<<id_usuario<<endl;
 	cout<<"Correo electronico: "<<c_electronico<<endl;
@@ -37,7 +37,7 @@ class Administrador: public Usuario{
 		int no_empleado;
 	public:
 		Administrador(string, int, string, int);
-		void consult_info();
+		void verificar_cuenta();
 };
 
 //Constructor SubClase Administrador
@@ -46,10 +46,10 @@ Administrador::Administrador(string _nombre, int _id_usuario, string _c_electron
 }
 
 //Void SubClase Administrador
-void Administrador::consult_info(){
+void Administrador::verificar_cuenta(){
 	cout<<endl;
-	cout<<"Informacion del Administrador:"<<endl;
-	verificar_cuenta();
+	cout<<"Administrador"<<endl;
+	Usuario::verificar_cuenta();
 	cout<<"No. de empleado: "<<no_empleado<<endl;
 } 
 
@@ -63,7 +63,7 @@ class Cliente: public Usuario{
 	public:
 		Cliente(string, int, string, int, int);
 		void comprar_vuelo();
-		void consult_info();
+		void verificar_cuenta();
 };
 
 //Constructor de Subclase Cliente
@@ -77,10 +77,12 @@ void Cliente::comprar_vuelo(){
 }
 
 //Void de SubClase Cliente
-void Cliente::consult_info(){
-	verificar_cuenta();
+void Cliente::verificar_cuenta(){
+	cout<<"Cliente"<<endl;
+	Usuario::verificar_cuenta();
 	cout<<"No. de Tarjeta: "<<no_tarjeta<<endl;
 	cout<<"Codigo de Cliente: "<<cod_cliente;
+	cout<<endl;
 }
 
 
@@ -94,12 +96,12 @@ class Vuelos{
 		string fecha_vuelo;
 		int no_boletos;
 	public:
-		Vuelos(string, string, string, int, string, int);
+		Vuelos(string, string, string, int, string, int); //Constructor 1
 		void consultar_vuelo();
 		void comprar_vuelo();
 };
 
-//Constructor Clase Vuelos
+//Constructor 1 Clase Vuelos
 Vuelos::Vuelos(string _lugar_partida, string _lugar_destino, string _clase, int _no_asiento, string _fecha_vuelo, int _no_boletos){
 	lugar_partida=_lugar_partida;
 	lugar_destino=_lugar_destino;
@@ -108,6 +110,8 @@ Vuelos::Vuelos(string _lugar_partida, string _lugar_destino, string _clase, int 
 	fecha_vuelo=_fecha_vuelo;
 	no_boletos=_no_boletos;
 }
+
+
 
 //Void Clase Vuelos
 void Vuelos::consultar_vuelo(){
@@ -158,11 +162,18 @@ void Factura::actualizar_info(){
 
 int main(){
 	
-	Cliente cliente1("Misael",7158,"a01706158@itesm.mx",12345678,6154);
-	cliente1.verificar_cuenta();
+	Cliente *cl[3];
+	cl[0] = new Cliente("Misael",7156,"a01706158@itesm.mx",12345678,6154);	
+	cl[1] = new Cliente("Javier",7157,"a01706412@itesm.mx",23456789,6155);
+
+	cl[0] ->verificar_cuenta();
+	cout<<"\n";
+	cl[1] ->verificar_cuenta();
 	
-	Administrador administrador1("Josuse",3434,"josue64@gmail.com",11234);
-	administrador1.consult_info();
+	Administrador *ad[2];
+	ad[2] = new Administrador("Luis",6969,"jmartinez@gmail.com",132);
+	ad[2] ->verificar_cuenta();
+
 	
 	Vuelos vuelos1("Madrid","Mexico","Primera Clase",97,"22/01/2021",1);
 	vuelos1.consultar_vuelo();
