@@ -11,7 +11,7 @@ class Usuario{
 		string c_electronico;
 	public:
 		Usuario(string, int, string);
-		virtual void verificar_cuenta();
+		virtual void verificar_cuenta()=0; //Clase Abstracta Pura
 };
 
 //Constructor SuperClase Usuario
